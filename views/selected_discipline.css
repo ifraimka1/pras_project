@@ -1,0 +1,188 @@
+.download-software {
+    display: inline-block;
+    background-color: #007bff;
+    border: 3px solid #8860d0;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .download-software:hover {
+    background-color: #0056b3;
+    border: 3px solid #8860d0;
+  
+  }
+  
+  .software-card {
+    border: 2px solid #8860d0;
+      background: #5ab9ea;
+    border-radius: 24px;
+    margin: 16px 0px 16px 0px;
+    padding: 4px 0px 4px 36px;
+    width: 90%;
+  margin-left: auto;
+    margin-right: auto;
+  }
+
+  .software-card-empty {
+    border: 2px solid #8860d0;
+      background: #5ab9ea;
+    border-radius: 24px;
+    margin: 16px 0px 16px 0px;
+    padding: 4px 0px 4px 36px;
+    width: 90%;
+    margin-top: 2%;
+  margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .software-card h2 {
+    padding: 16px 8px 8px 8px;
+    margin-top: 8px;
+    margin-bottom: 0px;
+    margin: 8px auto 0px auto;
+    /* background-color: #0056b3; */
+  }
+
+  .pdf-viewer {
+    width: 600px;
+    height: 600px;
+    display: none;
+    margin-top: 24px;
+    background-color: #3aa757;
+  }
+
+  .show-pdf-viewer {
+    display: inline-block;
+    background-color: #007bff;
+    border: 3px solid #8860d0;
+    color: #fff;
+    padding: 10px 20px;
+    margin-left: 12px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: large;
+  }
+
+  .add-software-button {
+    display: inline-block;
+    background-color: #007bff;
+    border: 3px solid #8860d0;
+    color: #fff;
+    padding: 10px 20px;
+    margin-top: 12px;
+    margin-left: 12px;
+    margin-bottom: 24px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: large;
+  }
+
+  .delete-software {
+      border-radius: 16px;
+      border: 0px;
+      background-color: red;
+      margin: auto 16px auto 16px;
+      color: #fff;
+      width: 24px;
+      height: 24px;
+
+      cursor: pointer;
+  }
+
+  .delete-software-section {
+    width: auto;
+  }
+
+  .edit-software-section {
+    background-color: #007bff;
+    border: 3px solid #8860d0;
+    border-radius: 50px;
+    padding: 8px;
+    color: #fff;
+
+  }
+
+  .admin-functions-software {
+    margin-left: 86%;
+    height: 50px;
+    margin-bottom: 0;
+    align-items: center;
+    display: flex;
+  }
+
+  .add-software-text-input {
+    width: 20%;
+    height: 24px;
+    border: 1px solid;
+    border-radius: 4px;
+  }
+
+  .add-software-file-input {
+    margin: auto;
+  }
+
+  .software-card-line {
+    /* background-color: #3aa757; */
+    display: inline-flex;
+    margin-bottom: 24px;
+  }
+
+  .software-card-line h2 {
+    margin: auto;
+    margin-left: 0;
+  }
+
+  .edit-software-text-input {
+    display: none;
+    width: 200px;
+    height: 24px;
+    border: 1px solid;
+    border-radius: 4px;
+    margin-top: 16px;
+    margin-left: 16px;
+    margin-right: 40px;
+  }
+
+  .edit-software-file-input {
+    display: none;
+    margin: auto;
+    margin-top: 20px;
+    margin-left: 16px;
+
+  }
+
+  .aaa {
+    display: inline-flex;
+  }
+
+  .update-software-button {
+    display: none;
+
+    background-color: #007bff;
+    border: 3px solid #8860d0;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+
+  .add-soft-line {
+    /* background-color: #3aa757; */
+    display: inline-flex;
+    width: 100%;
+    margin-top: 24px;
+  }
+
+  .add-soft-line h2 {
+    width: 50%;
+    margin: auto;
+    margin-left: 0%;
+    margin-right: 0%;
+    /* background-color: #8860d0; */
+  }
+
+  .add-soft-line input {
+    width: 50%;
+  }

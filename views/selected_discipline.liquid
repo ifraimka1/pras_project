@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> ПО для дисциплины: найдено {{software_count}}</title>
+    <style>
+          {%  include "selected_discipline.css" %}
+          {% include "header_and_footer.css" %}
+    </style>
+
+  </head>
+  <body>
+
+  <header>
+    <h1>Информационная подсистема поддержки <br> отечественного программного обеспечения направления 09.03.02</h1>
+    <nav>
+        <ul>
+          <li><a href="/login"> {{ user_role_string }}</a></li>
+
+            <li><a href="/find_software">Дисциплины</a></li>
+            
+            {% if user_role == "0"  %}
+              <li><a href="/chats">Обратная связь</a></li>
+             {% endif %}
+             {% if user_role == "1" %} 
+            <li><a href="/current_chat?with=3">Обратная связь</a></li>
+             {% endif %} 
+        </ul>
+    </nav>
+</header>
+<main>
+  <section class="software-card">
+    <h2>Список программного обеспечения для дисциплины: {{ discipline_name }}</h2>
+  </section>
+  {%if software_count == 0 and user_role != "0" %}
+    <section class="software-card-empty">
+          <h2>Программное обеспечение отсутствует, обратитесь к администратору</h2>
+          <a class="download-software" href="/find_software">Назад</a>
+    </section>
+  {% endif %}
+
+  {% if user_role == "0" %}
+    <form action="/add_software" method="post" enctype="multipart/form-data">
+    <section class="software-card">
+      <section class="add-soft-line">
+      <h2>Название приложения: <input type="text" name="software_name" class="add-software-text-input"/> </h2>
+      <h2>Версия приложения: <input type="text" name="software_version" class="add-software-text-input"/> </h2>
+      </section>
+
+      <h2><br>Описание: <input type="file" name="guide_description" class="add-software-file-input" accept=".pdf" /><br> </h2>
+      <h2>Инструкция по использованию: <input type="file" name="guide_use" class="add-software-file-input" accept=".pdf" /><br> </h2>
+      <h2>Инструкция по установке: <input type="file" name="guide_install" class="add-software-file-input" accept=".pdf" /><br> </h2>
+
+      <h2><br>Ссылка на скачивание: <input type="text" name="software_link" class="add-software-text-input" /><br> </h2>
+
+      <input class="add-software-button" type="submit" value="Добавить новое ПО"  />
+{% comment %} <h2><a class="download-software" href={{software.software_link}}>Добавить новое ПО</a></h2> {% endcomment %}
+</section>
+</form>
+  {% endif %}
+
+  {% for software in software_list %}
+    <section class="software-card">
+
+    {% if user_role == "0" %} 
+      <p class="admin-functions-software">
+        <input type="submit" class="edit-software-section" onclick="enableEditSoftwareMode({{software.software_id}});" value="Редактировать"/>
+        <a href="/delete_software?id={{software.software_id}}" class="delete-software-section">
+               
+        <input type="submit" class="delete-software" onclick="clicked();" value="x" />
+        
+        <script type="text/javascript">
+        function clicked() {
+           if (confirm('Вы действительно хотите удалить выбранное ПО?')) {
+               yourformelement.submit();
+           } else {
+               return false;
+           }
+        }
+
+        {% include "scripts_selected_discipline.txt" %}
+    
+    </script>
+</a>
+      </p>
+    {% endif %}
+
+    <form action="/edit_software" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="softwareId" value="{{software.software_id}}"/>
+
+        <section class="software-card-line">
+          <h2>Название приложения:</h2> 
+              <section class="aaa" id="normal_software_name_{{software.software_id}}">
+                <h2>{{software.software_name}}; </h2>
+              </section>
+              <input type="text" value="{{software.software_name}}" id="edit_software_name_{{software.software_id}}" name="edit_software_name" class="edit-software-text-input"/>
+
+              <h2>Версия: </h2>
+              <section class="aaa" id="normal_software_version_{{software.software_id}}">
+              <h2>
+                {% if software.software_version != ""  %}
+                  {{ software.software_version }}
+                 {%else %}
+                    Нет данных
+                 {% endif %}
+                </h2>
+              </section>
+              <input type="text" value="{{software.software_version}}" id="edit_software_version_{{software.software_id}}" name="edit_software_version" class="edit-software-text-input"/>
+              </section>
+
+        <br>
+        <!-- -->
+        <section class="software-card-line">
+          <h2>Описание:</h2>
+           
+          <section class="aaa" id="normal_software_description_{{software.software_id}}">
+          <input id="software_description_{{software.software_id}}_button" type="button" class="show-pdf-viewer"
+          onclick="toggle_visibility('software_description_{{software.software_id}}');" value="Показать"/> </br>
+          </section>
+
+          <input type="file" id="edit_software_description_{{software.software_id}}" name="edit_software_description" class="edit-software-file-input" accept=".pdf" />
+          </section>
+
+          <iframe id="software_description_{{software.software_id}}" src="{{ files_path }}{{software.software_description}}" 
+          class="pdf-viewer" frameborder="0">Ваш браузер не поддерживает фреймы</iframe>
+          <!-- -->
+
+          <br>
+          <section class="software-card-line">
+          <h2>Инструкция по использованию: </h2>
+
+          <section class="aaa" id="normal_guide_using_{{software.software_id}}">
+          <input id="guide_using_{{software.software_id}}_button" type="button" class="show-pdf-viewer"
+          onclick="toggle_visibility('guide_using_{{software.software_id}}');" value="Показать"/> </br>
+            </section>
+
+          <input type="file" id="edit_guide_using_{{software.software_id}}" name="edit_guide_using" class="edit-software-file-input" accept=".pdf" />
+          </section>
+          <iframe id="guide_using_{{software.software_id}}" src="{{files_path}}{{software.guide_using}}" 
+          class="pdf-viewer" frameborder="0">Ваш браузер не поддерживает фреймы</iframe>
+        
+
+          <br>
+          <section class="software-card-line">
+          <h2>Инструкция по установке: </h2>
+
+          <section class="aaa" id="normal_guide_install_{{software.software_id}}">
+          <input id="guide_installation_{{software.software_id}}_button" type="button" class="show-pdf-viewer"
+          onclick="toggle_visibility('guide_installation_{{software.software_id}}');" value="Показать"/> </br>
+          </section>
+
+          <input type="file" id="edit_guide_install_{{software.software_id}}" name="edit_guide_install" class="edit-software-file-input" accept=".pdf" />
+          </section>
+          <iframe id="guide_installation_{{software.software_id}}" src="{{files_path}}{{software.guide_installation}}" 
+          class="pdf-viewer" frameborder="0">Ваш браузер не поддерживает фреймы</iframe>
+           </br>
+
+           <section class="software-card-line">
+           <h2>Ссылка на скачивание: </h2>
+           <section class="aaa" id="normal_software_install_{{software.software_id}}">
+              <a class="download-software" href={{software.software_link}}>Скачать приложение</a>
+              </section>
+              <input type="text" value="{{software.software_link}}" id="edit_software_install_{{software.software_id}}" name="edit_software_install" class="edit-software-text-input"/>
+           </section>
+
+    <button type="submit" id="update_software_{{software.software_id}}" class="update-software-button">Применить изменения</button>
+
+    <h4><br>*При проблемах обратитесь к администратору</h3>
+
+    </form>
+    </section>
+
+    <script type="text/javascript">
+   function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       var b = document.querySelector("#" + id + "_button");
+
+       if(e.style.display == 'block') { 
+        e.style.display = 'none';
+        b.value = "Показать";}
+       else {
+        e.style.display = 'block';
+        b.value = "Скрыть";}
+   }
+</script>
+
+  {% endfor  %}
+
+</main>
+<footer>
+  <p>&copy; 2024 Сайт разработал Тоидзе Александр Сергеевич </p> <p> Подсистема поддержки отечественного программного
+    обеспечения направления 09.03.02</p>
+	<p>Все права защищены.</p>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+        function enableEditSoftwareMode(id) {
+        console.log(id);
+        var update_software_button = document.getElementById("update_software_" + id);
+
+        var software_name = document.getElementById("normal_software_name_" + id);
+        var edit_software_name = document.getElementById("edit_software_name_" + id);
+
+        var software_version = document.getElementById("normal_software_version_" + id);
+        var edit_software_version = document.getElementById("edit_software_version_" + id);
+
+        var software_description = document.getElementById("normal_software_description_" + id);
+        var edit_software_description = document.getElementById("edit_software_description_" + id);
+
+        var guide_using = document.getElementById("normal_guide_using_" + id);
+        var edit_guide_using = document.getElementById("edit_guide_using_" + id);
+
+        var guide_install = document.getElementById("normal_guide_install_" + id);
+        var edit_guide_install = document.getElementById("edit_guide_install_" + id);
+        
+        var software_install = document.getElementById("normal_software_install_" + id);
+        var edit_software_install = document.getElementById("edit_software_install_" + id);
+
+       if(software_name.style.display == 'inline-flex') { 
+        update_software_button.style.display = 'block';
+
+        software_name.style.display = 'none';
+        edit_software_name.style.display = 'block';
+
+        software_version.style.display = 'none';
+        edit_software_version.style.display = 'block';
+
+        software_description.style.display = 'none';
+        edit_software_description.style.display = 'block';
+
+        guide_using.style.display = 'none';
+        edit_guide_using.style.display = 'block';
+
+        guide_install.style.display = 'none';
+        edit_guide_install.style.display = 'block';
+
+        software_install.style.display = 'none';
+        edit_software_install.style.display = 'block';
+
+      }
+       else {
+        update_software_button.style.display = 'none';
+
+        software_name.style.display = 'inline-flex';
+        edit_software_name.style.display = 'none';
+
+        software_version.style.display = 'block';
+        edit_software_version.style.display = 'none';
+
+        software_description.style.display = 'block';
+        edit_software_description.style.display = 'none';
+
+        guide_using.style.display = 'block';
+        edit_guide_using.style.display = 'none';
+
+        guide_install.style.display = 'block';
+        edit_guide_install.style.display = 'none';
+
+        software_install.style.display = 'block';
+        edit_software_install.style.display = 'none';
+      }
+      }

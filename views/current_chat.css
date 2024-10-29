@@ -1,0 +1,108 @@
+.send-message {
+    border-radius: 8px;
+    padding: 8px;
+
+    background-color: #5680e9;
+    border: 3px solid #8860d0;
+    color: #fff;
+
+    background-color: #5ab9ea;
+    margin: 16px 16px 0 16px;
+    justify-content: center;
+  }
+
+  .search-box,.close-icon,.search-wrapper {
+    position: relative;
+    padding: 10px;
+    /* background-color: #000; */
+    margin: 0 0 20px 0;
+  }
+  .search-wrapper {
+    width: 100%;
+    margin: auto;
+    margin-top: 4px;
+  }
+
+  .search-box {
+    width: 85%;
+    border: 2px solid #8860d0;
+    max-lines: 10;
+    outline: 0;
+    border-radius: 15px;
+  }
+  .search-box:focus {
+    box-shadow: 0 0 15px 8px #c1c8e4;
+    border: 2px solid #8860d0;
+  }
+
+  .bubble {
+    --r: 1em;  /* the radius */
+    --t: 1.5em; /* the size of the tail */
+    
+    max-width: 35%;
+    margin: 24px;
+    border-inline: var(--t) solid #0000;
+    border-radius: calc(var(--r) + var(--t))/var(--r);
+    mask: 
+      radial-gradient(100% 100% at var(--_p) 0,#0000 99%,#000 102%) 
+        var(--_p) 100%/var(--t) var(--t) no-repeat,
+      linear-gradient(#000 0 0) padding-box;
+    /* background: linear-gradient(135deg,#FE6D00,#1384C5) border-box; */
+    background-color: #5ab9ea;
+    color: #fff;
+  }
+  .left {
+    --_p: 0;
+    border-bottom-left-radius: 0 0;
+    place-self: start;
+  }
+  .right {
+    --_p: 100%;
+    border-bottom-right-radius: 0 0;
+    place-self: end;
+    margin-left: 60%;
+  }
+
+  .date {
+    border-radius: 0px;
+    margin-left: 50%;
+    margin-right: 0%;
+    padding-bottom: 2%;
+    padding-left: 1%;
+    padding-right: 4%;
+    /* background-color: #000; */
+    text-align: end;
+
+  }
+
+  .text {
+    margin-top: 16px;
+    margin-left: 8%;
+
+    border-radius: 0px;
+    width: 90%;
+    min-width: 90%;
+    /* background-color: #000; */
+  }
+
+
+  .sender {
+    margin: 0 0 2% 5%;
+    padding-top: 16px;
+    /* background-color: #000; */
+  text-decoration: none;
+
+  }
+
+  .chat-history-field {
+    background-size: contain;
+    background-image: url("https://catherineasquithgallery.com/uploads/posts/2021-02/1612806731_67-p-matematika-golubogo-fona-103.jpg");
+    /* background-color: #FE6D00; */
+
+    /* for hide vertical scrollbar bar: */
+    -ms-overflow-style: none;  /* IE 10+ */
+    scrollbar-width: none; /* Firefox */
+
+    height: 65vh;
+    overflow-y: scroll;
+  }

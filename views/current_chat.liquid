@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чат с пользователем: {{chat_with_name}}</title>
+    <style>
+          {%  include "header_and_footer.css" %}
+          {%  include "current_chat.css" %}
+
+    </style>
+
+  </head>
+  <body>
+
+  <header>
+    <h1>Информационная подсистема поддержки <br> отечественного программного обеспечения направления 09.03.02</h1>
+    <nav>
+        <ul>
+          <li><a href="/login">
+          {% if user_role_string != undefined %}
+          {{ user_name }}
+          {% else %}
+          Войти
+          {% endif %}
+          </a></li>
+          
+            <li><a href="/find_software">Дисциплины</a></li>
+            <li><a href="/chats">Обратная связь</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+<section id="chat-history-field" class="chat-history-field" >
+
+  {%  for message in history  %} 
+  
+    <div {% if message.sender_id == my_id %}
+      class="bubble right"
+      {% else %}
+      class="bubble left"
+    {% endif %}
+      >
+      <h4 class="sender">
+        {% if message.sender_id == my_id %} {{ my_name }} {%  else %} {{chat_with_name}} {% endif %}
+      </h4>
+      <h2 class="text">{{ message.message_text }}</h2>
+      <h4 class="date" id="message_date_{{message.message_id}}"></h4>
+      </div>
+
+      <script>
+          function convertDateFormat(inputDate) {
+            var date = new Date(inputDate);
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear() % 100;
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            day = (day < 10) ? '0' + day : day;
+            month = (month < 10) ? '0' + month : month;
+            hours = (hours < 10) ? '0' + hours : hours;
+            minutes = (minutes < 10) ? '0' + minutes : minutes;
+            seconds = (seconds < 10) ? '0' + seconds : seconds;
+            var formattedDate = day + '.' + month + '.' + year + ', ' + hours + ':' + minutes + ':' + seconds;
+            return formattedDate;
+        }
+
+var originalDateString = "{{message.message_date}}";
+var formattedDate = convertDateFormat(originalDateString);
+
+// Выводим отформатированную дату в элемент с id "formattedDate"
+document.getElementById('message_date_{{message.message_id}}').textContent = formattedDate;
+console.log(formattedDate);
+      </script>
+
+  {% endfor %}
+
+</section>
+
+</main>
+<footer>
+    <form action="/sendMessage" method="post" class="enter-message-section-wrapper">
+    <input type="text" id="add_discipline" name="messagetext" required class="search-box" maxlength="254"  placeholder="Введите сообщение" />
+
+    <input type="hidden" name="receiver" width="0px" height="0px" value={{ chat_with }}>
+
+    <button type="submit" class="send-message">Отправить
+      {% comment %} <img src="https://socialscienceandhumanities.ontariotechu.ca/about/mail-icon-01.png" height="48px" width="48px"> {% endcomment %}
+    </button>
+    </form>
+
+</footer>
+
+<script>
+    {% include "./helper/handleHtmlScripts.js"%}
+
+    //below code for scroll chat history to bottom after load this page:
+    let scroll_to_bottom = document.getElementById('chat-history-field');
+		scroll_to_bottom.scrollTop = scroll_to_bottom.scrollHeight;
+    //
+    //
+</script>
+
+  </body>
+</html>

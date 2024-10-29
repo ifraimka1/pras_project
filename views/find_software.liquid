@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информационная подсистема поддержки отечественного ПО направления 09.03.02</title>
+    <style>
+          {% include "software_page.css" %}
+          {% include "searchbar.css" %}
+          {% include "header_and_footer.css" %}
+    </style>
+  </head>
+  <body>
+  <header>
+    <h1>Информационная подсистема поддержки <br> отечественного программного обеспечения направления 09.03.02</h1>
+    <nav>
+        <ul>
+          <li><a href="/login"> {{ user_role_string }} </a></li>
+
+            <li><a href="/find_software">Дисциплины</a></li>
+
+            {% if user_role == "0"  %}
+              <li><a href="/chats">Обратная связь</a></li>
+             {% endif %}
+             {% if user_role == "1" %} 
+            <li><a href="/current_chat?with=3">Обратная связь</a></li>
+             {% endif %}
+        </ul>
+    </nav>
+</header>
+
+<main>
+	<div>
+<div class="search-section">
+    
+<h4 class="founded_counter">{{by_search_query}} {% if by_query != '' %} <a href="/clear_search"> <br /> Нажмите сюда, чтобы очистить поиск</a> {% endif %}</h4>
+
+ <div class="search-wrapper">
+  <form>
+  <input type="text" id="query_input" name="search_by" required class="search-box"  placeholder="Введите название учебной дисциплины здесь..." />
+    <button class="close-icon" type="reset"></button>
+  </form>
+</div> 
+
+  <script>
+    function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+  </script>
+</div>
+
+<div>
+
+ {% if user_role == "0" %}
+
+<section class="file-card">
+<div class="new_discipline_name_wrapper">
+    <form>
+    <input type="text" id="add_discipline" name="add_discipline" required class="search-box"  placeholder="Введите название для новой учебной дисциплины здесь..." />
+      <button class="close-icon" type="reset"></button>
+    </form>
+  </div>
+
+  {% comment %} <input type="text" id="add_discipline" class="add_discipline_input" maxlength="100" minlength="1"/> {% endcomment %}
+
+  <a href="/add_discipline?name=" onclick="location.href=this.href + document.getElementById('add_discipline').value; return false;">
+      <button class="add-discipline">Добавить</button>
+  </a>
+
+ </section>
+     </a>
+
+ {% endif %}
+
+
+{% for folder in disciplines %}
+
+<section class="file-card">
+  <section>
+  <a id="normal_discipline_name_{{folder.folder_id}}" class="file-card-section" href="/selected_discipline?id={{folder.folder_id}}&name={{folder.discipline_name}}">
+     <h2>{{ folder.discipline_name }}</h2>
+  </a>
+
+  <form class="name-line" method="post" action="/updateDisciplineName">
+    <input type="text" value="{{folder.discipline_name}}" id="edit_discipline_name_{{folder.folder_id}}" name="edit_discipline_name" class="edit-discipline-name-input"/>
+    <input type="hidden" name="folderId" value="{{folder.folder_id}}"/>
+    <button type="submit" id="update_discipline_{{folder.folder_id}}" class="update-discipline-button">Применить изменения</button>
+
+    </form>
+  </section>
+{% if user_role == "0" %} 
+  <section class="edit-discipline-line">
+    <input type="submit" class="add-discipline" onclick="enableEditDisciplineMode({{folder.folder_id}});" value="Редактировать"/>
+
+    <a href="/delete_discipline?id={{folder.folder_id}}">
+             <button class="delete-discipline" >x</button>
+    </a>
+    <script type="text/javascript">
+    function enableEditDisciplineMode(id) {
+    var discipline_name = document.getElementById("normal_discipline_name_" + id);
+    var edit_discipline_name = document.getElementById("edit_discipline_name_" + id);
+    var update_discipline_button = document.getElementById("update_discipline_" + id);
+
+    if (discipline_name.style.display == 'block') {
+      discipline_name.style.display = 'none';
+      edit_discipline_name.style.display = 'block';
+      update_discipline_button.style.display = 'block';
+    } else {
+      discipline_name.style.display = 'block';
+      edit_discipline_name.style.display = 'none';
+      update_discipline_button.style.display = 'none';
+    }
+    }
+</script>
+  </section>
+{% endif %}
+
+ </section>
+
+{% endfor %}
+
+</div>
+</main>
+
+<footer>
+    <p>&copy; 2024 Сайт разработал Тоидзе Александр Сергеевич </p> <p> Подсистема поддержки отечественного программного
+обеспечения направления 09.03.02</p>
+	<p>Все права защищены.</p>
+</footer>
+  </body>
+</html>
