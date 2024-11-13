@@ -7,7 +7,8 @@ const __filename = fileURLToPath(import.meta.url);
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const { Sequelize, DataTypes, Op } = require('sequelize');
+const { Op } = require('sequelize');
+import { authenticateDB, syncDB, authorizeRequest, disciplineFoldersList, disciplineSoftwareList, chatHistoryList } from './db.js';
 const request = require('request');
 const multer  = require("multer");
 const path = require("path");
@@ -20,8 +21,8 @@ var xhr = new XMLHttpRequest();
 
 const app = express();
 const port = 3000;
-const software_guides_path = "http://127.0.0.1:3000/uploads/";
-const fileserver_path = "E:/SfeduProjects/VKR/uploads/";
+const software_guides_path = "http://127.0.0.1:3000/uploads/"
+const fileserver_path = "E:/SfeduProjects/VKR/uploads/"
 
 var { Liquid } = require('liquidjs');
 var engine = new Liquid();
@@ -35,6 +36,9 @@ app.set('views', './views');            // specify the views directory
 app.set('view engine', 'liquid'); 
 app.use(express.static(path.dirname(__filename) + '/public'));      // set liquid to default
 
+authenticateDB();
+syncDB();
+
 var disciplinePublicList = "";
 let current_user_role = "-1"; // 0 - admin, 1 - teacher, 2 - student
 let selectedDiscipline = -1; // if -1 - not selected discipline now, else has selected
@@ -42,14 +46,14 @@ let current_username = "";
 let current_user_id = -1;
 
 let user_rolestring = "Войти";
-var sortBy = 'ASC';
+var sortBy = 'ASC'
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'uploads/');
+      cb(null, 'uploads/')
     },
     filename: function (req, file, cb) {
-        cb(null, getRandomedDate() + path.extname(file.originalname)); //Appending extension
+        cb(null, getRandomedDate() + path.extname(file.originalname)) //Appending extension
     }
   })
 
@@ -79,97 +83,6 @@ var uploadAllGuidesForNewSoftware = upload.fields([
     {name: 'guide_install', maxCount: 1},
     {name: 'guide_description', maxCount: 1}
 ])
-
-const sequelize = new Sequelize('postgres://postgres:31052002@localhost:5432/rus_support_software');
-
-const authorizeRequest = sequelize.define('user_list', {
-    user_id: {
-        type: DataTypes.BIGINT,
-        allowNull: false,
-        primaryKey: true
-    },
-    user_name: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    user_login: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    user_password: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    user_role: {
-        type: DataTypes.BIGINT,
-        allowNull: false
-    }
-});
-
-const disciplineFoldersList = sequelize.define('discipline_folders', {
-    folder_id: {
-        type: DataTypes.BIGINT,
-        allowNull: false,
-        primaryKey: true
-    },
-    discipline_name: {
-        type: DataTypes.STRING,
-        allowNull: false
-    }
-});
-
-const disciplineSoftwareList = sequelize.define('discipline_software', {
-    software_id: {
-        type: DataTypes.BIGINT,
-        allowNull: false,
-        primaryKey: true
-    },
-    parent_folder_id: {
-        type: DataTypes.BIGINT,
-        allowNull: false
-    },
-    software_name: {
-        type: DataTypes.STRING
-    },
-    software_version: {
-        type: DataTypes.STRING
-    },
-    software_link: {
-        type: DataTypes.STRING
-    },
-    software_description: {
-        type: DataTypes.STRING
-    },
-    guide_installation: {
-        type: DataTypes.STRING
-    },
-    guide_using: {
-        type: DataTypes.STRING
-    }
-})
-
-const chatHistoryList = sequelize.define('chat_history', {
-    message_id: {
-        type: DataTypes.BIGINT,
-        allowNull: false
-    },
-    message_date: {
-        type: DataTypes.DATE,
-        allowNull: false
-    },
-    message_text: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    sender_id: {
-        type: DataTypes.BIGINT,
-        allowNull: false
-    },
-    receiver_id: {
-        type: DataTypes.BIGINT,
-        allowNull: false
-    }
-})
 
 //СТРАНИЦА "НАЙТИ ПО"
 app.get('/find_software', async (req, res) => {
@@ -279,7 +192,7 @@ app.get('/selected_discipline', async (req, res) => {
       selectedDiscipline = req.query.id;
 
       const softwareModel = {
-        parent_folder_id: "Жопа негра",
+        parent_folder_id: "default",
         software_count: allSoftware.map(x => x.software_id).length,
         software_list: allSoftware.map(x => x.get({plain:true})),
         software_id: allSoftware.map(x => x.software_id),
@@ -382,7 +295,7 @@ app.post('/handleLoginResponse', async (req, res) => {
             res.render('info_page', infoModel) 
         } else {
             current_user_role = user.user_role;
-            user_rolestring = "Жопа негра";
+            user_rolestring = "default";
             current_username = user.user_name;
             current_user_id = user.user_id;
             console.log('redirected to main page, role = ' + current_user_role);
@@ -557,10 +470,5 @@ const deleteFile = async (filePath) => {
         console.log('Some error occured while register new user: ' + e);
     }
   });
-
-disciplineFoldersList.sync();
-disciplineSoftwareList.sync();
-authorizeRequest.sync();
-chatHistoryList.sync();
 
 app.listen(port, () => console.log('Server was successfully started on port ' + port));
