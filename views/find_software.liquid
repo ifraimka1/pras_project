@@ -6,14 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Информационная подсистема поддержки отечественного ПО направления 09.03.02</title>
     <style>
-          {% include "software_page.css" %}
-          {% include "searchbar.css" %}
-          {% include "header_and_footer.css" %}
+          {% include "./styles/software_page.css" %}
+          {% include "./styles/searchbar.css" %}
+          {% include "./styles/header_and_footer.css" %}
+          {%  include "./styles/general_style.css" %}
     </style>
   </head>
   <body>
   <header>
-    <h1>Информационная подсистема поддержки <br> отечественного программного обеспечения направления 09.03.02</h1>
+    <h1>Справочник программного обеспечения для направления 09.04.01.03</h1>
     <nav>
         <ul>
           <li><a href="/login"> {{ user_role_string }} </a></li>
@@ -24,7 +25,7 @@
               <li><a href="/chats">Обратная связь</a></li>
              {% endif %}
              {% if user_role == "1" %} 
-            <li><a href="/current_chat?with=3">Обратная связь</a></li>
+            <li><a href="/current_chat?with=1">Обратная связь</a></li>
              {% endif %}
         </ul>
     </nav>
@@ -128,8 +129,7 @@
 </main>
 
 <footer>
-    <p>&copy; 2024 Сайт разработал Тоидзе Александр Сергеевич </p> <p> Подсистема поддержки отечественного программного
-обеспечения направления 09.03.02</p>
+    <p>&copy; 2024 Разработчики: Тоидзе Александр Сергеевич, Соломонов Ифраим Михайлович </p> <p> Справочник программного обеспечения для направления 09.04.01.03</p>
 	<p>Все права защищены.</p>
 </footer>
   </body>

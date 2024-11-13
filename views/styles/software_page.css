@@ -1,0 +1,153 @@
+/* div section {
+	width: 90%;
+	background: var(--color-background);
+	 border: 3px solid var(--color-border); 
+	margin: 16px;
+	padding: 0px 16px 0px 16px;
+	border-radius: 24px;
+} */
+
+.search-section {
+  display: flex;
+  padding-top: 4px;
+  padding-bottom: 8px;
+  margin: 12px 36px 18px 36px;
+  background-color: var(--color-background);
+  border: 2px solid var(--color-border);
+  border-radius: 16px;
+}
+
+.filter_by {
+  width: 20%;
+  background-color: #000;
+}
+
+.founded_counter {
+  width: 20%;
+  margin-left: 4.5%;
+  text-align: left;
+  margin-right: 2%;
+  margin-top: 1.5%;
+}
+
+.file-card {
+    border: 2px solid var(--color-border);
+    border-radius: 24px;
+    background: var(--color-background);
+
+    /* margin: 16px 0px 16px 0px;
+    padding: 4px 0px 4px 36px; */
+    width: 90%;
+    height: 74px;
+    display: flex;
+    justify-content: space-between;
+    
+    margin-top: 16px;
+    margin-bottom: 16px;
+	margin-left: auto;
+    margin-right: auto;
+    padding-left: 16px;
+}
+
+.file-card-section {
+  text-decoration: none;
+  color: #000;
+}
+
+.delete-discipline {
+  border-radius: 16px;
+  border: 0px;
+  background-color: red;
+  color: #fff;
+  width: 24px;
+  height: 24px;
+  margin-right: 24px;
+  margin-top: 24px;
+  cursor: pointer;
+}
+
+.file-card img {
+    width: 50px;
+    height: 50px;
+}
+
+.file-card h2 {
+  padding-top: 24px;
+  padding-bottom: 24px;
+  padding-right: 24px;
+  padding-left: 8px;
+  margin-top: auto;
+  margin-bottom: auto;
+  /* background-color: var(--color-border); */
+}
+
+.add_discipline_input {
+  height: 24px;
+  width: 25%;
+  margin: 24px 24px 24px 8px;
+  /* background-color: var(--color-border); */
+}
+
+h4 {
+	text-align: right;
+	margin-right: 5%;
+}
+
+.add-discipline {
+  border-radius: 16px;
+  border: 0px;
+  background-color: var(--color-background-header);
+  border: 3px solid var(--color-border);
+  color: #fff;
+  height: 32px;
+  margin-right: 24px;
+  margin-top: 24px;
+}
+
+.new_discipline_name_wrapper {
+  padding: 18px;
+  padding-left: 0px;
+  width: 40%;
+  margin-top: 4px;
+}
+
+.search-box,.close-icon,.search-wrapper {
+  position: relative;
+  padding: 10px;
+}
+.search-wrapper {
+  width: 40%;
+  margin: auto;
+  margin-top: 4px;
+}
+
+.edit-discipline-name-input {
+  padding: 4px;
+  padding-left: 8px;
+  display: none;
+  width: 500px;
+  height: 24px;
+  border: 1px solid;
+  border-radius: 4px;
+  margin-top: 21px;
+  margin-bottom: 23px;
+  margin-right: 20px;
+}
+
+.update-discipline-button {
+    display: none;
+
+    background-color: #007bff;
+    border: 3px solid var(--color-border);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    height: 50%;
+    padding: 12px;
+    font-size: 16px;
+}
+
+.name-line {
+  display: inline-flex;
+  align-items: center;
+}
